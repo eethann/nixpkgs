@@ -2,7 +2,7 @@
 , libxml2, python3, libnotify, wrapGAppsHook, libmediaart
 , gobjectIntrospection, gnome-online-accounts, grilo, grilo-plugins
 , pkgconfig, gtk3, glib, desktop-file-utils, appstream-glib
-, itstool, gnome3, gst_all_1 }:
+, itstool, gnome3, gst_all_1, libdazzle, libsoup }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gnome-music";
@@ -19,7 +19,7 @@ python3.pkgs.buildPythonApplication rec {
   buildInputs = with gst_all_1; [
     gtk3 glib libmediaart gnome-online-accounts
     gdk_pixbuf gnome3.defaultIconTheme python3
-    grilo grilo-plugins libnotify
+    grilo grilo-plugins libnotify libdazzle libsoup
     gnome3.gsettings-desktop-schemas tracker
     gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly
   ];
