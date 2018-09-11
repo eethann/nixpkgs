@@ -1,5 +1,5 @@
 { stdenv, fetchurl, meson, ninja, pkgconfig, gettext, libxml2, desktop-file-utils, python3, wrapGAppsHook
-, gtk, gnome3, gnome-autoar, dbus-glib, shared-mime-info, libnotify, libexif
+, gtk, gnome3, gnome-autoar, dbus-glib, shared-mime-info, libnotify, libexif, libseccomp
 , exempi, librsvg, tracker, tracker-miners, gnome-desktop, gexiv2, libselinux, gdk_pixbuf }:
 
 let
@@ -17,7 +17,7 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [
     dbus-glib shared-mime-info libexif gtk exempi libnotify libselinux
-    tracker tracker-miners gnome-desktop gexiv2
+    tracker tracker-miners gnome-desktop gexiv2 libseccomp
     gnome3.adwaita-icon-theme gnome3.gsettings-desktop-schemas
   ];
 
