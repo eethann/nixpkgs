@@ -20,9 +20,6 @@ in stdenv.mkDerivation rec {
     sha256 = "0fgjy5z3cmnsh62rjgy24ppws1g39n9kis7x9s28acfdb1r2j7k2";
   };
 
-  # Needed to find /etc/NetworkManager/VPN
-  mesonFlags = [ "--sysconfdir=/etc" ];
-
   LANG = "en_US.UTF-8";
 
   nativeBuildInputs = [
