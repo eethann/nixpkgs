@@ -26,8 +26,8 @@ in stdenv.mkDerivation rec {
   ];
 
   postPatch = ''
-    chmod +x meson_post_install.py
-    patchShebangs meson_post_install.py
+    chmod +x build-aux/meson/meson_post_install.py
+    patchShebangs build-aux/meson/meson_post_install.py
   '';
 
   passthru = {
