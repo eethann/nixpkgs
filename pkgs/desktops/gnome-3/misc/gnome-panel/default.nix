@@ -23,7 +23,7 @@
 
 let
   pname = "gnome-panel";
-  version = "3.28.0";
+  version = "3.30.0";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
@@ -31,7 +31,7 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-    sha256 = "1004cp9cxqpic9lsraqn5c1739acn4sn4ql3c1fja99hv22h1ziv";
+    sha256 = "12q0l7wy6hzl46i7xpvv82ka3bn14z0jg6fhv5xhnk7j9mkbmgqw";
   };
 
   patches = [
