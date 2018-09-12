@@ -25,13 +25,13 @@
 
 let
   pname = "gnome-flashback";
-  version = "3.28.0";
+  version = "3.30.0";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-    sha256 = "1ra8bfwgwqw47zx2h1q999g7l4dnqh7sv02if3zk8pkw3sm769hg";
+    sha256 = "18rwql2pi78155l9zp1i50xfi5z8xz2l08m9d81x6qqbfr1nyy57";
   };
 
   patches =[
