@@ -47,6 +47,8 @@ in stdenv.mkDerivation rec {
     };
   };
 
+  PKG_CONFIG_LIBEDATASERVERUI_1_2_UIMODULEDIR = "${placeholder "out"}/lib/evolution-data-server/ui-modules";
+
   requiredSystemFeatures = [ "big-parallel" ];
 
   meta = with stdenv.lib; {
