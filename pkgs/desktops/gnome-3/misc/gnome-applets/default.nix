@@ -28,13 +28,13 @@
 
 let
   pname = "gnome-applets";
-  version = "3.28.0";
+  version = "3.30.0";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
-    sha256 = "0wd6pirv57rcxm5d32r1s3ni7sp26gnqd4qhjciw0pn5ak627y5h";
+    sha256 = "1cvl32486kqw301wy40l1a1sdhanra7bx4smq0a3lmnl3x01zg43";
   };
 
   patches = [
