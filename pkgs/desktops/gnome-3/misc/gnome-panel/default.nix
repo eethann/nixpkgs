@@ -62,6 +62,9 @@ in stdenv.mkDerivation rec {
     "--enable-eds"
   ];
 
+  # https://gitlab.gnome.org/GNOME/gnome-panel/issues/8
+  NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
+
   enableParallelBuilding = true;
 
   doCheck = true;
