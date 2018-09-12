@@ -21,6 +21,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     chmod +x postinstall.py # patchShebangs requires executable file
     patchShebangs postinstall.py
+    patchShebangs data/set-mime-type-entry.py
   '';
 
   passthru = {
