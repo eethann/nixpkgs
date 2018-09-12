@@ -34,15 +34,6 @@ in stdenv.mkDerivation rec {
     sha256 = "12q0l7wy6hzl46i7xpvv82ka3bn14z0jg6fhv5xhnk7j9mkbmgqw";
   };
 
-  patches = [
-    # https://github.com/NixOS/nixpkgs/issues/36468
-    # https://gitlab.gnome.org/GNOME/gnome-panel/issues/6
-    (fetchpatch {
-      url = https://gitlab.gnome.org/GNOME/gnome-panel/commit/be26e170a10c297949a6d9f3cbc70b6caaf04b56.patch;
-      sha256 = "10gxl9fwbv5j0s1lz7gkz6wqpda5wfzs49r5khbk1h05lv0hk4l4";
-    })
-  ];
-
   nativeBuildInputs = [
     autoreconfHook
     gettext
