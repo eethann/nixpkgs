@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, intltool, pkgconfig, gnome3, gtk3
-, gobjectIntrospection, gdk_pixbuf, librsvg, libgweather, autoreconfHook
-, geoclue2, wrapGAppsHook, folks, libchamplain, gfbgraph, file, libsoup
+{ stdenv, fetchurl, meson, ninja, gettext, python3, pkgconfig, gnome3, gtk3
+, gobjectIntrospection, gdk_pixbuf, librsvg, libgweather
+, geoclue2, wrapGAppsHook, folks, libchamplain, gfbgraph, libsoup
 , webkitgtk, gjs, libgee, geocode-glib, evolution-data-server, gnome-online-accounts }:
 
 let
@@ -16,7 +16,7 @@ in stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs = [ intltool wrapGAppsHook file autoreconfHook pkgconfig ];
+  nativeBuildInputs = [ meson ninja pkgconfig gettext python3 wrapGAppsHook ];
   buildInputs = [
     gobjectIntrospection
     gtk3 geoclue2 gjs libgee folks gfbgraph
@@ -27,11 +27,14 @@ in stdenv.mkDerivation rec {
     webkitgtk
   ];
 
-  # The .service file isn't wrapped with the correct environment
-  # so misses GIR files when started. By re-pointing from the gjs
-  # entry point to the wrapped binary we get back to a wrapped
-  # binary.
-  preConfigure = ''
+  postPatch = ''
+    chmod +x meson_post_install.py # patchShebangs requires executable file
+    patchShebangs meson_post_install.py
+
+    # The .service file isn't wrapped with the correct environment
+    # so misses GIR files when started. By re-pointing from the gjs
+    # entry point to the wrapped binary we get back to a wrapped
+    # binary.
     substituteInPlace "data/org.gnome.Maps.service.in" \
         --replace "Exec=@pkgdatadir@/org.gnome.Maps" \
                   "Exec=$out/bin/gnome-maps"
@@ -48,7 +51,7 @@ in stdenv.mkDerivation rec {
     homepage = https://wiki.gnome.org/Apps/Maps;
     description = "A map application for GNOME 3";
     maintainers = gnome3.maintainers;
-    license = licenses.gpl2;
+    license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };
 }
