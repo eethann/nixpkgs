@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchurl, stdenv, meson, ninja, pkgconfig, python, python3, pygobject3
-, gst-plugins-base, ncurses
+{ buildPythonPackage, fetchurl, stdenv, meson, ninja, pkgconfig, python, pygobject3
+, gst-plugins-base, ncurses, isPy3k
 }:
 
 let
@@ -20,7 +20,7 @@ in buildPythonPackage rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [ meson ninja pkgconfig python python3 ];
+  nativeBuildInputs = [ meson ninja pkgconfig python ];
 
   # XXX: in the Libs.private field of python3.pc
   buildInputs = [ ncurses ];
@@ -35,6 +35,8 @@ in buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [ gst-plugins-base pygobject3 ];
+
+  disabled = !isPy3k;
 
   meta = {
     homepage = https://gstreamer.freedesktop.org;
