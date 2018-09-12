@@ -1,5 +1,5 @@
 { stdenv, fetchurl, buildPythonPackage, pkgconfig, glib, gobjectIntrospection,
-pycairo, cairo, which, ncurses, meson, ninja}:
+pycairo, cairo, which, ncurses, meson, ninja, python }:
 
 buildPythonPackage rec {
   major = "3.30";
@@ -15,6 +15,10 @@ buildPythonPackage rec {
   };
 
   outputs = [ "out" "dev" ];
+
+  mesonFlags = [
+    "-Dpython=python${builtins.substring 0 1 (python.majorVersion)}"
+  ];
 
   nativeBuildInputs = [ pkgconfig meson ninja ];
   buildInputs = [ glib gobjectIntrospection ]
