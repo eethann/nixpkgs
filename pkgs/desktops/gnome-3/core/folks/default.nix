@@ -1,4 +1,4 @@
-{ fetchurl, stdenv, pkgconfig, glib, gnome3, nspr, intltool
+{ fetchurl, stdenv, pkgconfig, glib, gnome3, nspr, intltool, gobjectIntrospection
 , vala, sqlite, libxml2, dbus-glib, libsoup, nss, dbus
 , telepathy-glib, evolution-data-server, libsecret, db }:
 
