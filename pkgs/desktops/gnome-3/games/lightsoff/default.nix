@@ -23,8 +23,6 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ gtk3 gnome3.defaultIconTheme gdk_pixbuf librsvg clutter clutter-gtk ];
 
-  enableParallelBuilding = true;
-
   passthru = {
     updateScript = gnome3.updateScript {
       packageName = "lightsoff";
