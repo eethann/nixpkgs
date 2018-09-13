@@ -22,8 +22,6 @@ stdenv.mkDerivation rec {
     gnome3.gsettings-desktop-schemas systemd
   ];
 
-  enableParallelBuilding = true;
-
   postPatch = ''
     chmod +x meson_post_install.py # patchShebangs requires executable file
     patchShebangs meson_post_install.py
