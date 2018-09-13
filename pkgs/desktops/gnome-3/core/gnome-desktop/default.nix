@@ -1,5 +1,5 @@
 { stdenv, fetchurl, substituteAll, pkgconfig, libxslt, which, libX11, gnome3, gtk3, glib
-, intltool, libxml2, xkeyboard_config, isocodes, itstool, wayland
+, gettext, libxml2, xkeyboard_config, isocodes, itstool, wayland
 , libseccomp, bubblewrap, gobjectIntrospection, gtk-doc, docbook_xsl }:
 
 stdenv.mkDerivation rec {
@@ -13,13 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "1zcmyxxf61hrmba2g5d7zhck4pfc5x2gf90hznh2b4cdy5m4yja5";
   };
 
-  # TODO: remove with 3.30
-  NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
-
   enableParallelBuilding = true;
 
   nativeBuildInputs = [
-    pkgconfig which itstool intltool libxslt libxml2 gobjectIntrospection
+    pkgconfig which itstool gettext libxslt libxml2 gobjectIntrospection
     gtk-doc docbook_xsl
   ];
   buildInputs = [
