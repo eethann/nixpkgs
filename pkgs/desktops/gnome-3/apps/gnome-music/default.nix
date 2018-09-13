@@ -23,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     gnome3.gsettings-desktop-schemas tracker
     gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly
   ];
-  propagatedBuildInputs = with python3.pkgs; [ pycairo dbus-python requests pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [ pycairo dbus-python pygobject3 ];
 
 
   postPatch = ''
