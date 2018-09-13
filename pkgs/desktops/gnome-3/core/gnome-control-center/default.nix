@@ -1,6 +1,6 @@
 { fetchurl, stdenv, substituteAll, meson, ninja, pkgconfig, gnome3, ibus, gettext, upower, wrapGAppsHook
 , libcanberra-gtk3, accountsservice, libpwquality, libpulseaudio
-, gdk_pixbuf, librsvg, libnotify, libgudev, gnome-color-manager
+, gdk_pixbuf, librsvg, libnotify, libgudev, libsecret, gnome-color-manager
 , libxml2, polkit, libxslt, libgtop, libsoup, colord, colord-gtk
 , cracklib, libkrb5, networkmanagerapplet, networkmanager, glibc
 , libwacom, samba, shared-mime-info, tzdata, libtool, libgnomekbd
@@ -28,7 +28,7 @@ in stdenv.mkDerivation rec {
     libxml2 gnome-desktop gnome-settings-daemon polkit libgtop
     gnome-online-accounts libsoup colord libpulseaudio fontconfig colord-gtk
     accountsservice libkrb5 networkmanagerapplet libwacom samba libnotify
-    grilo libpwquality cracklib vino libcanberra-gtk3 libgudev
+    grilo libpwquality cracklib vino libcanberra-gtk3 libgudev libsecret
     gdk_pixbuf defaultIconTheme librsvg clutter clutter-gtk cheese
     networkmanager modemmanager gnome-bluetooth tracker
   ];
@@ -42,8 +42,8 @@ in stdenv.mkDerivation rec {
   ];
 
   postPatch = ''
-    chmod +x meson_post_install.py # patchShebangs requires executable file
-    patchShebangs meson_post_install.py
+    chmod +x build-aux/meson/meson_post_install.py # patchShebangs requires executable file
+    patchShebangs build-aux/meson/meson_post_install.py
   '';
 
   preFixup = ''
