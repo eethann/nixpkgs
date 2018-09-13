@@ -39,11 +39,6 @@ stdenv.mkDerivation rec {
   '';
 
   preFixup = ''
-    for desktopFile in $(grep -rl "Exec=gnome-session" $out/share)
-    do
-      echo "Patching gnome-session path in: $desktopFile"
-      sed -i "s,Exec=gnome-session,Exec=$out/bin/gnome-session," $desktopFile
-    done
     wrapProgram "$out/bin/gnome-session" \
       --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
       --suffix XDG_DATA_DIRS : "$out/share:$GSETTINGS_SCHEMAS_PATH" \
