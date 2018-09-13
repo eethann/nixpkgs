@@ -1,7 +1,6 @@
 { stdenv
 , autoreconfHook
 , fetchurl
-, fetchpatch
 , gettext
 , glib
 , gnome-bluetooth
@@ -40,13 +39,6 @@ in stdenv.mkDerivation rec {
       inherit metacity;
       gnomeSession = gnome-session;
     })
-
-    # https://github.com/NixOS/nixpkgs/issues/36468
-    # https://gitlab.gnome.org/GNOME/gnome-flashback/issues/3
-    (fetchpatch {
-      url = https://gitlab.gnome.org/GNOME/gnome-flashback/commit/eabd34f64adc43b8783920bd7a2177ce21f83fbc.patch;
-      sha256 = "116c5zy8cp7d06mrsn943q7vj166086jzrfzfqg7yli14pmf9w1a";
-    })
   ];
 
   nativeBuildInputs = [
@@ -74,6 +66,12 @@ in stdenv.mkDerivation rec {
   doCheck = true;
 
   enableParallelBuilding = true;
+
+  installFlags = [
+    # overrides do not respect gsettingsschemasdir
+    # https://gitlab.gnome.org/GNOME/gnome-flashback/issues/9
+    "overridedir=${placeholder "out"}/share/gsettings-schemas/${name}/glib-2.0/schemas"
+  ];
 
   passthru = {
     updateScript = gnome3.updateScript {
