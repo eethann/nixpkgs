@@ -1,4 +1,4 @@
-{ buildPythonPackage, fetchurl, stdenv, meson, ninja, pkgconfig, python, pygobject3
+{ buildPythonPackage, fetchurl, meson, ninja, stdenv, pkgconfig, python, pygobject3
 , gst-plugins-base, ncurses, isPy3k
 }:
 
@@ -10,6 +10,8 @@ in buildPythonPackage rec {
   inherit pname version;
   format = "other";
 
+  outputs = [ "out" "dev" ];
+
   src = fetchurl {
     urls = [
       "${meta.homepage}/src/gst-python/${name}.tar.xz"
@@ -18,25 +20,26 @@ in buildPythonPackage rec {
     sha256 = "08nb011acyvlz48fqh8c084k0dlssz9b7wha7zzk797inidbwh6w";
   };
 
-  outputs = [ "out" "dev" ];
+  patches = [
+    # Meson build does not support Python 2 at the moment
+    # https://bugzilla.gnome.org/show_bug.cgi?id=797138
+    (fetchurl {
+      name = "0001-meson-Allow-building-with-Python-2.patch";
+      url = "https://bugzilla.gnome.org/attachment.cgi?id=373641";
+      sha256 = "18m95f8kdz8g4djhpwdmp190cliz29z3vidhshqa3956i246gszm";
+    })
+  ];
 
   nativeBuildInputs = [ meson ninja pkgconfig python ];
 
   # XXX: in the Libs.private field of python3.pc
-  buildInputs = [ ncurses ];
+  buildInputs = stdenv.lib.optional isPy3k ncurses;
 
   mesonFlags = [
-    "-Dpygi-overrides-dir=${python.sitePackages}/gi/overrides"
+    "-Dpython_version=${if isPy3k then "3" else "2"}"
   ];
 
-  postPatch = ''
-    chmod +x scripts/pythondetector # patchShebangs requires executable file
-    patchShebangs scripts/pythondetector
-  '';
-
   propagatedBuildInputs = [ gst-plugins-base pygobject3 ];
-
-  disabled = !isPy3k;
 
   meta = {
     homepage = https://gstreamer.freedesktop.org;
